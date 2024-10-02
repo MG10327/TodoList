@@ -23,6 +23,12 @@ const Todo = () => {
         setTodoList((prev)=> [...prev, newTodo])
     }
 
+    const deleteTodo = (id)=>{
+        setTodoList((prvTodos)=>{
+            return prvTodos.filter((todo)=> todo.id !== id)
+        })
+    }
+
   return (
     <div className='grid'>
 
@@ -45,7 +51,7 @@ const Todo = () => {
 
             <div>
                 {todoList.map((item, i)=> {
-                    return <TodoItems key={i} text={item.text} />
+                    return <TodoItems key={i} text={item.text} id={item.id} isComplete={item.isComplete} deleteTodo={deleteTodo} />
                 })}
             </div>
         </div>
