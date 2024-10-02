@@ -1,8 +1,28 @@
-import React from 'react'
+import React, { useRef, useState } from 'react'
 import todo_icon from '../assets/todo_icon.png'
 import TodoItems from './TodoItems'
 
 const Todo = () => {
+
+    const inputRef = useRef()
+
+    const [todoList, setTodoList] = useState([])
+
+    const add = () => {
+        const inputText = inputRef.current.value.trim() //removes extra space from the start and end of a string
+
+        if (inputText === "") {
+            return null
+        }
+
+        const newTodo = {
+            id: Date.now(),
+            text: inputText,
+            isComplete: false,
+        }
+        setTodoList((prev)=> [...prev, newTodo])
+    }
+
   return (
     <div className='grid'>
 
@@ -17,17 +37,16 @@ const Todo = () => {
     {/* Input box */}
 
             <div className='flex item-center my-7 bg-gray-200 rounded-full'>
-                <input className='bg-transparent border-0 outline-none flex-1 h-14 pl-6 pr-2 placeholder:text-slate-600' type="text" placeholder='Add your task' />
-                <button className='border-none bg-orange-500 rounded-full w-32 h-13 text-white text-lg font-medium cursor-pointer'>ADD +</button>
+                <input className='bg-transparent border-0 outline-none flex-1 h-14 pl-6 pr-2 placeholder:text-slate-600' type="text" placeholder='Add your task' ref={inputRef} />
+                <button className='border-none bg-orange-500 rounded-full w-32 h-13 text-white text-lg font-medium cursor-pointer' onClick={add}>ADD +</button>
             </div>
 
     {/* Todo List */}
 
             <div>
-                <TodoItems text="Workout for an hour"/>
-                <TodoItems text="Build React Projects"/>
-                <TodoItems text="Eat 3500 Calories"/>
-                <TodoItems text="Deploy React Apps"/>
+                {todoList.map((item, i)=> {
+                    return <TodoItems key={i} text={item.text} />
+                })}
             </div>
         </div>
 
