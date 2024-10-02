@@ -24,7 +24,10 @@ const Todo = () => {
     {/* Todo List */}
 
             <div>
-                <TodoItems />
+                <TodoItems text="Workout for an hour"/>
+                <TodoItems text="Build React Projects"/>
+                <TodoItems text="Eat 3500 Calories"/>
+                <TodoItems text="Deploy React Apps"/>
             </div>
         </div>
 
