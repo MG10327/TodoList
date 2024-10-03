@@ -41,7 +41,7 @@ const Todo = () => {
     }
 
     useEffect(()=>{
-        console.log(todoList);
+        localStorage.setItem("todos", JSON.stringify(todoList))
     },[todoList])
 
   return (
