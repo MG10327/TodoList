@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import todo_icon from '../assets/todo_icon.png'
 import TodoItems from './TodoItems'
 
@@ -29,6 +29,21 @@ const Todo = () => {
         })
     }
 
+    const toggle = (id)=> {
+        setTodoList((prevTodos)=>{
+            return prevTodos.map((todo)=>{
+                if(todo.id === id){
+                    return {...todo, isComplete: !todo.isComplete}
+                }
+                return todo
+            })
+        })
+    }
+
+    useEffect(()=>{
+        console.log(todoList);
+    },[todoList])
+
   return (
     <div className='grid'>
 
@@ -51,7 +66,7 @@ const Todo = () => {
 
             <div>
                 {todoList.map((item, i)=> {
-                    return <TodoItems key={i} text={item.text} id={item.id} isComplete={item.isComplete} deleteTodo={deleteTodo} />
+                    return <TodoItems key={i} text={item.text} id={item.id} isComplete={item.isComplete} deleteTodo={deleteTodo} toggle={toggle} />
                 })}
             </div>
         </div>
