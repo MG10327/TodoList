@@ -6,7 +6,7 @@ const Todo = () => {
 
     const inputRef = useRef()
 
-    const [todoList, setTodoList] = useState([])
+    const [todoList, setTodoList] = useState(localStorage.getItem("todos")? JSON.parse(localStorage.getItem("todos")) : [])
 
     const add = () => {
         const inputText = inputRef.current.value.trim() //removes extra space from the start and end of a string
@@ -41,7 +41,7 @@ const Todo = () => {
     }
 
     useEffect(()=>{
-        console.log(todoList);
+        localStorage.setItem("todos", JSON.stringify(todoList))
     },[todoList])
 
   return (
@@ -49,7 +49,7 @@ const Todo = () => {
 
     {/* Title */}
 
-        <div className="bg-white place-self-center w-11/12 max-w-md flex flex-col p-7 min-h-[550px] rounded-xl">
+        <div className="bg-white place-self-center w-11/12 max-w-md flex flex-col p-3 md:p-7 min-h-[550px] rounded-xl">
             <div className="flex item-center mt-7 gap-2">
                 <h1 className='text-3xl font-semibold'>To-Do List</h1>
                 <img src={todo_icon} alt="" className='w-8'/>
